@@ -10,14 +10,14 @@ class JsonPlaceholderHttpClient {
 
   private implicit val backend: SttpBackend[Identity, Nothing, NothingT] = HttpURLConnectionBackend()
 
-  def fetchAllPosts: Try[Array[Post]] = {
+  def fetchAllPosts: Try[List[Post]] = {
     val fetchAllPostsRequest = basicRequest
       .get(GetAllPostsUri)
       .response(asJson[Array[Post]])
 
     fetchAllPostsRequest.send().body match {
       case Left(error)                      => Failure(error)
-      case Right(responseBody: Array[Post]) => Success(responseBody)
+      case Right(responseBody: Array[Post]) => Success(responseBody.toList)
     }
   }
 

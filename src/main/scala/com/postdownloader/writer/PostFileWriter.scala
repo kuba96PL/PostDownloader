@@ -11,7 +11,7 @@ import scala.util.{Failure, Success, Try}
 
 class PostFileWriter extends LazyLogging {
 
-  def writePosts(posts: Seq[Post]): Seq[Try[Post]] =
+  def writePosts(posts: List[Post]): List[Try[Post]] =
     posts
       .map(
         post =>
