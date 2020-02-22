@@ -20,7 +20,7 @@ object ApplicationConfiguration extends LazyLogging {
       logger.error(
         "Directory where posts should be saved to files cannot be null. Please provide valid path and try again."
       )
-      throw ConfigurationLoadingException("Missing path to directory where posts should be saved to files.", exception)
+      throw ConfigurationLoadingException("Missing path to directory where posts should be saved to files. Please provide valid path and try again.", exception)
     case Failure(exception: Missing) =>
       logger.error(
         "Missing path to directory where posts should be saved to files. Please provide valid path and try again."
