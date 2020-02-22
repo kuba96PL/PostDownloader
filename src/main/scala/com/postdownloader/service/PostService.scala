@@ -9,10 +9,10 @@ import com.typesafe.scalalogging.LazyLogging
 
 import scala.util.{Failure, Success, Try}
 
-class PostService(httpClient: JsonPlaceholderHttpClient, fileWriter: PostFileWriter) extends LazyLogging {
+class PostService(httpClient: JsonPlaceholderHttpClient, fileWriter: PostFileWriter) {
 
-  def fetchAndSave: List[Try[Post]] = fileWriter.writePosts(fetchPosts())
-  private def fetchPosts(): List[Post] =
+  def fetchAndSave: List[Try[Post]] = fileWriter.writePosts(fetchPosts)
+  private def fetchPosts: List[Post] =
     httpClient.fetchAllPosts match {
       case Success(posts)     => posts
       case Failure(exception) => throw PostFetchingException("An error occurred while fetching posts", exception)

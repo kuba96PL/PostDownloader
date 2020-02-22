@@ -1,6 +1,7 @@
 package com.postdownloader
 
 import com.postdownloader.http.client.JsonPlaceholderHttpClient
+import com.postdownloader.service.PostService
 import com.postdownloader.writer.PostFileWriter
 
 object PostDownloaderApp extends App {
