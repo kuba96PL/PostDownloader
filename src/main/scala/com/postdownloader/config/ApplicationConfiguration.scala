@@ -27,7 +27,7 @@ object ApplicationConfiguration extends LazyLogging {
       )
       throw ConfigurationLoadingException("Missing path to directory where posts should be saved to files.", exception)
     case Failure(exception) =>
-      logger.error("Something went wrong during configuration loading: ")
+      logger.error("Something went wrong during configuration loading", exception)
       throw exception
   }
 }
