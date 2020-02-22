@@ -19,4 +19,4 @@ class PostService(httpClient: JsonPlaceholderHttpClient, fileWriter: PostFileWri
     }
 }
 
-case class PostFetchingException(message: String, cause: Throwable) extends IOException(message, cause)
+final case class PostFetchingException(message: String, cause: Throwable) extends IOException(message, cause)
