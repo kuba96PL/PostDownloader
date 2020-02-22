@@ -1,5 +1,6 @@
 package com.postdownloader
 import com.postdownloader.JSONProtocol.SinglePostJSONFormat
+import com.postdownloader.JSONProtocol.PostArrayJSONFormat
 import com.postdownloader.http.domain.Post
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.GivenWhenThen
@@ -11,7 +12,7 @@ class JSONProtocolTest extends AnyFlatSpec with MockFactory with Matchers with G
 
   it should "parse single Post JSON to object" in {
     Given("single Post JSON")
-    val postJSON = """{ "userId": 1, "id": 1, "title": "lorem ipsum", "body": "dolor sit amet" }"""
+    val postJSON = """{"userId":1,"id":1,"title":"lorem ipsum","body":"dolor sit amet"}"""
 
     When("converting JSON to object")
     val result = postJSON.parseJson.convertTo[Post]
@@ -35,5 +36,35 @@ class JSONProtocolTest extends AnyFlatSpec with MockFactory with Matchers with G
     Then("return Post as JSON")
     result shouldEqual
       """{"body":"dolor sit amet","id":2,"title":"lorem ipsum","userId":1}"""
+  }
+
+  it should "parse Post JSON array to object Array" in {
+    Given("Post JSON array")
+    val postJSON =
+      """[{"userId":1,"id":1,"title":"title_1","body":"body_1"},{"userId":2,"id":2,"title":"title_2","body":"body_2"},{"userId":3,"id":3,"title":"title_3","body":"body_3"}]"""
+
+    When("converting JSON to Array[Post]")
+    val result = postJSON.parseJson.convertTo[Array[Post]]
+
+    Then("return Array[Post]")
+    result should contain only (
+      Post(1, 1, "title_1", "body_1"),
+      Post(2, 2, "title_2", "body_2"),
+      Post(3, 3, "title_3", "body_3"),
+    )
+  }
+
+  it should "parse Array[Post] to Post JSON array " in {
+    Given("Array[Post]")
+    val postArray = Array(
+      Post(1, 1, "title_1", "body_1"),
+      Post(2, 2, "title_2", "body_2"),
+      Post(3, 3, "title_3", "body_3"),
+    )
+    When("converting JSON to Array[Post]")
+    val result = PostArrayJSONFormat.write(postArray).compactPrint
+
+    Then("return Array[Post]")
+    result shouldEqual """[{"body":"body_1","id":1,"title":"title_1","userId":1},{"body":"body_2","id":2,"title":"title_2","userId":2},{"body":"body_3","id":3,"title":"title_3","userId":3}]"""
   }
 }
