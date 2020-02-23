@@ -2,7 +2,7 @@ package com.postdownloader.writer
 import java.io.{BufferedWriter, File, FileWriter, IOException}
 
 import com.postdownloader.JSONProtocol.SinglePostJSONFormat
-import com.postdownloader.config.ApplicationConfiguration.PostWritingDirectory
+import com.postdownloader.config.application.ApplicationConfiguration.PostWritingDirectory
 import com.postdownloader.http.domain.Post
 import com.typesafe.scalalogging.LazyLogging
 import spray.json._

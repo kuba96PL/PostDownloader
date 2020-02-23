@@ -1,6 +1,6 @@
-package com.postdownloader.config
-import java.io.IOException
+package com.postdownloader.config.application
 
+import com.postdownloader.config.handleConfigurationPropertyException
 import com.typesafe.config.ConfigException.{Missing, Null}
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.LazyLogging
@@ -19,28 +19,18 @@ object ApplicationConfiguration extends LazyLogging {
     case Success(path) => path
     case Failure(exception: Null) =>
       handleConfigurationPropertyException(
+        logger,
         "Directory where posts should be saved to files cannot be null. Please provide valid path and try again.",
         exception
       )
     case Failure(exception: Missing) =>
       handleConfigurationPropertyException(
+        logger,
         "Missing path to directory where posts should be saved to files. Please provide valid path and try again.",
         exception
       )
     case Failure(exception) =>
-      handleConfigurationPropertyException(
-        "Something went wrong during configuration loading",
-        exception
-      )
+      handleConfigurationPropertyException(logger, "Something went wrong during configuration loading", exception)
   }
 
-  private def handleConfigurationPropertyException(loggingMessage: String, exception: Throwable) = {
-    logger.error(loggingMessage)
-    throw ConfigurationLoadingException(
-      "Missing path to directory where posts should be saved to files. Please provide valid path and try again.",
-      exception
-    )
-  }
 }
-
-private case class ConfigurationLoadingException(message: String, cause: Throwable) extends IOException(message, cause)
