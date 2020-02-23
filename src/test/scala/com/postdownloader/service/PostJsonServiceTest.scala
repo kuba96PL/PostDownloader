@@ -1,15 +1,14 @@
 package com.postdownloader.service
 
-import java.io.IOException
-
 import com.postdownloader.UnitSpec
 import com.postdownloader.domain.Post
 import com.postdownloader.http.client.JsonPlaceholderClient
 import com.postdownloader.writer.PostFileWriter
+import org.scalatest.TryValues
 
-import scala.util.Success
+import scala.util.{Failure, Success}
 
-class PostJsonServiceTest extends UnitSpec {
+class PostJsonServiceTest extends UnitSpec with TryValues {
 
   private val httpClient: JsonPlaceholderClient = mock[JsonPlaceholderClient]
   private val fileWriter: PostFileWriter = mock[PostFileWriter]
@@ -43,13 +42,12 @@ class PostJsonServiceTest extends UnitSpec {
     Given("Failure during posts fetching")
     (httpClient.fetchAllPosts _)
       .expects()
-      .throwing(new IOException(new RuntimeException("some exception thrown")))
+      .returning(Failure(new RuntimeException))
 
     When("fetching and saving posts")
-    val result = the[IOException] thrownBy postService.saveAllPosts
+    val result = postService.saveAllPosts
 
     Then("throw PostFetchingException")
-    result.getCause.getClass shouldEqual classOf[RuntimeException]
-    result.getCause.getMessage shouldEqual "some exception thrown"
+    result.failure.exception.getClass shouldEqual classOf[RuntimeException]
   }
 }
