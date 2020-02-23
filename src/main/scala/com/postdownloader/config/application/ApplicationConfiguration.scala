@@ -9,7 +9,7 @@ import scala.util.{Failure, Success, Try}
 
 object ApplicationConfiguration extends LazyLogging {
 
-  private val PostsWritingDirectoryPath: String = "application.directory.downloadPostsToDirectory"
+  private val PostsWritingDirectoryPath: String = "application.posts.downloadPostsToDirectory"
 
   lazy val PostWritingDirectory: String = Try {
     ConfigFactory
