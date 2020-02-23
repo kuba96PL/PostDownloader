@@ -3,7 +3,7 @@ import java.io.IOException
 
 import com.postdownloader.JSONProtocol.PostArrayJSONFormat
 import com.postdownloader.config.http.HttpConfiguration.JsonPlaceholderAPIBaseUrl
-import com.postdownloader.http.domain.Post
+import com.postdownloader.domain.Post
 import com.typesafe.scalalogging.LazyLogging
 import sttp.client._
 import sttp.client.sprayJson._

@@ -1,5 +1,5 @@
 package com.postdownloader.repository
-import com.postdownloader.http.domain.Post
+import com.postdownloader.domain.Post
 
 import scala.util.Try
 

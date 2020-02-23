@@ -1,7 +1,7 @@
 package com.postdownloader.service
 
+import com.postdownloader.domain.Post
 import com.postdownloader.http.client.JsonPlaceholderHttpClient
-import com.postdownloader.http.domain.Post
 import com.postdownloader.writer.PostFileWriter
 
 import scala.util.Try

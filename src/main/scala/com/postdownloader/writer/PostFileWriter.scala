@@ -1,5 +1,5 @@
 package com.postdownloader.writer
-import com.postdownloader.http.domain.Post
+import com.postdownloader.domain.Post
 import com.postdownloader.repository.PostRepository
 import com.typesafe.scalalogging.LazyLogging
 

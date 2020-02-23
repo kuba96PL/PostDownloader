@@ -1,4 +1,4 @@
-package com.postdownloader.http.domain
+package com.postdownloader.domain
 
 final case class Post(
     userId: Int,

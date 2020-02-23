@@ -1,7 +1,6 @@
 package com.postdownloader
-import com.postdownloader.JSONProtocol.SinglePostJSONFormat
-import com.postdownloader.JSONProtocol.PostArrayJSONFormat
-import com.postdownloader.http.domain.Post
+import com.postdownloader.JSONProtocol.{PostArrayJSONFormat, SinglePostJSONFormat}
+import com.postdownloader.domain.Post
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec

@@ -2,8 +2,8 @@ package com.postdownloader.service
 
 import java.io.IOException
 
+import com.postdownloader.domain.Post
 import com.postdownloader.http.client.{JsonPlaceholderHttpClient, PostFetchingException}
-import com.postdownloader.http.domain.Post
 import com.postdownloader.writer.PostFileWriter
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.GivenWhenThen

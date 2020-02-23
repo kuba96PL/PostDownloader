@@ -1,5 +1,5 @@
 package com.postdownloader
-import com.postdownloader.http.domain.Post
+import com.postdownloader.domain.Post
 import spray.json.{DefaultJsonProtocol, JsArray, JsValue, RootJsonFormat, _}
 
 object JSONProtocol extends DefaultJsonProtocol {
