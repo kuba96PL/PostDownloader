@@ -6,9 +6,9 @@ This app was created using:<br>
 <b>Scala</b>: 2.13.1<br> 
 <b>SBT</b>: 1.3.8
 
-## Installation
-1. Install Scala and SBT
-2. Clone the repository
+## How to run it?
+1. Make sure you have Scala 2.13.1 and SBT 1.3.8 installed. It may not work with older versions.
+2. Clone the repository.
 3. From root directory run "sbt run" command.
 
 ## Configuration
