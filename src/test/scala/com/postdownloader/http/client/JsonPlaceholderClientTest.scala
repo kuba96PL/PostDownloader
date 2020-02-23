@@ -2,14 +2,13 @@ package com.postdownloader.http.client
 import com.postdownloader.UnitSpec
 import com.postdownloader.config.http.HttpConfiguration.JsonPlaceholderAPIBaseUrl
 import com.postdownloader.domain.Post
-import org.scalatest.TryValues
 import sttp.client._
 import sttp.client.testing.SttpBackendStub
 import sttp.model.StatusCode.Ok
 
 import scala.util.Success
 
-class JsonPlaceholderClientTest extends UnitSpec with TryValues {
+class JsonPlaceholderClientTest extends UnitSpec {
 
   it should "return Success with List of posts" in {
     Given("JsonPlaceholderClient")

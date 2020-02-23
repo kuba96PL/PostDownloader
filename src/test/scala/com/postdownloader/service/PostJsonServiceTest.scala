@@ -4,11 +4,10 @@ import com.postdownloader.UnitSpec
 import com.postdownloader.domain.Post
 import com.postdownloader.http.client.JsonPlaceholderClient
 import com.postdownloader.writer.PostFileWriter
-import org.scalatest.TryValues
 
 import scala.util.{Failure, Success}
 
-class PostJsonServiceTest extends UnitSpec with TryValues {
+class PostJsonServiceTest extends UnitSpec {
 
   private val httpClient: JsonPlaceholderClient = mock[JsonPlaceholderClient]
   private val fileWriter: PostFileWriter = mock[PostFileWriter]
