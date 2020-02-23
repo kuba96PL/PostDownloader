@@ -9,12 +9,12 @@ import scala.util.{Failure, Success, Try}
 
 object ApplicationConfiguration extends LazyLogging {
 
-  private val DirectoryConfigPath: String = "application.directory.downloadPostsToDirectory"
+  private val PostsWritingDirectoryPath: String = "application.directory.downloadPostsToDirectory"
 
   lazy val PostWritingDirectory: String = Try {
     ConfigFactory
       .load()
-      .getString(DirectoryConfigPath)
+      .getString(PostsWritingDirectoryPath)
   } match {
     case Success(path) => path
     case Failure(exception: Null) =>
