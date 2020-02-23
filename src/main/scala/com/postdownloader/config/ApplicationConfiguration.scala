@@ -10,6 +10,7 @@ import scala.util.{Failure, Success, Try}
 object ApplicationConfiguration extends LazyLogging {
 
   private val DirectoryConfigPath: String = "application.directory.downloadPostsToDirectory"
+
   lazy val PostWritingDirectory: String = Try {
     ConfigFactory
       .load()
@@ -17,18 +18,28 @@ object ApplicationConfiguration extends LazyLogging {
   } match {
     case Success(path) => path
     case Failure(exception: Null) =>
-      logger.error(
-        "Directory where posts should be saved to files cannot be null. Please provide valid path and try again."
+      handleConfigurationPropertyException(
+        "Directory where posts should be saved to files cannot be null. Please provide valid path and try again.",
+        exception
       )
-      throw ConfigurationLoadingException("Missing path to directory where posts should be saved to files. Please provide valid path and try again.", exception)
     case Failure(exception: Missing) =>
-      logger.error(
-        "Missing path to directory where posts should be saved to files. Please provide valid path and try again."
+      handleConfigurationPropertyException(
+        "Missing path to directory where posts should be saved to files. Please provide valid path and try again.",
+        exception
       )
-      throw ConfigurationLoadingException("Missing path to directory where posts should be saved to files.", exception)
     case Failure(exception) =>
-      logger.error("Something went wrong during configuration loading", exception)
-      throw exception
+      handleConfigurationPropertyException(
+        "Something went wrong during configuration loading",
+        exception
+      )
+  }
+
+  private def handleConfigurationPropertyException(loggingMessage: String, exception: Throwable) = {
+    logger.error(loggingMessage)
+    throw ConfigurationLoadingException(
+      "Missing path to directory where posts should be saved to files. Please provide valid path and try again.",
+      exception
+    )
   }
 }
 
