@@ -2,17 +2,14 @@ package com.postdownloader.service
 
 import java.io.IOException
 
+import com.postdownloader.UnitSpec
 import com.postdownloader.domain.Post
 import com.postdownloader.http.client.JsonPlaceholderClient
 import com.postdownloader.writer.PostFileWriter
-import org.scalamock.scalatest.MockFactory
-import org.scalatest.GivenWhenThen
-import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
 
 import scala.util.Success
 
-class PostJsonServiceTest extends AnyFlatSpec with MockFactory with Matchers with GivenWhenThen {
+class PostJsonServiceTest extends UnitSpec {
 
   private val httpClient: JsonPlaceholderClient = mock[JsonPlaceholderClient]
   private val fileWriter: PostFileWriter = mock[PostFileWriter]

@@ -1,13 +1,9 @@
 package com.postdownloader
 import com.postdownloader.JSONProtocol.{PostArrayJSONFormat, SinglePostJSONFormat}
 import com.postdownloader.domain.Post
-import org.scalamock.scalatest.MockFactory
-import org.scalatest.GivenWhenThen
-import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
 import spray.json._
 
-class JSONProtocolTest extends AnyFlatSpec with MockFactory with Matchers with GivenWhenThen {
+class JSONProtocolTest extends UnitSpec {
 
   it should "parse single Post JSON to object" in {
     Given("single Post JSON")
