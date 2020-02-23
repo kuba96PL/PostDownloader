@@ -6,9 +6,8 @@ import sttp.client._
 import sttp.client.sprayJson._
 
 import scala.util.{Failure, Success, Try}
-class JsonPlaceholderHttpClient {
+class JsonPlaceholderHttpClient(implicit val httpBackend: SttpBackend[Identity, Nothing, NothingT]) {
 
-  private implicit val backend: SttpBackend[Identity, Nothing, NothingT] = HttpURLConnectionBackend()
 
   def fetchAllPosts: Try[List[Post]] = {
     val fetchAllPostsRequest = basicRequest
