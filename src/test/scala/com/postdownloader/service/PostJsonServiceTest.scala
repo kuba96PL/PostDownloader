@@ -3,7 +3,7 @@ package com.postdownloader.service
 import java.io.IOException
 
 import com.postdownloader.domain.Post
-import com.postdownloader.http.client.{JsonPlaceholderClient, PostFetchingException}
+import com.postdownloader.http.client.JsonPlaceholderClient
 import com.postdownloader.writer.PostFileWriter
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.GivenWhenThen
@@ -29,7 +29,7 @@ class PostJsonServiceTest extends AnyFlatSpec with MockFactory with Matchers wit
 
     (httpClient.fetchAllPosts _)
       .expects()
-      .returning(List(post1, post2))
+      .returning(Success(List(post1, post2)))
 
     (fileWriter.writePosts _)
       .expects(List(post1, post2))
@@ -39,7 +39,7 @@ class PostJsonServiceTest extends AnyFlatSpec with MockFactory with Matchers wit
     val result = postService.saveAllPosts
 
     Then("return list of fetched and saved posts")
-    result should contain only (Success(post1), Success(post2))
+    result shouldEqual Success(List(Success(post1), Success(post2)))
   }
 
   it should "throw PostFetchingException" in {
@@ -49,10 +49,10 @@ class PostJsonServiceTest extends AnyFlatSpec with MockFactory with Matchers wit
       .throwing(new IOException(new RuntimeException("some exception thrown")))
 
     When("fetching and saving posts")
-    val exception = the[PostFetchingException] thrownBy postService.saveAllPosts
+    val result = the[IOException] thrownBy postService.saveAllPosts
 
     Then("throw PostFetchingException")
-    exception.getMessage shouldEqual "An error occurred while fetching posts"
-    exception.getCause.getClass shouldEqual classOf[IOException]
+    result.getCause.getClass shouldEqual classOf[RuntimeException]
+    result.getCause.getMessage shouldEqual "some exception thrown"
   }
 }
