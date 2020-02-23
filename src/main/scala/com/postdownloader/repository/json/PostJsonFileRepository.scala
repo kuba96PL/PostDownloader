@@ -25,7 +25,7 @@ class PostJsonFileRepository extends PostRepository with LazyLogging {
         Failure(FailedToWritePostToFileException(post, exception))
     }
   }
-  private def createFileWithDirectories(post: Post) = {
+  private def createFileWithDirectories(post: Post): File = {
     val file = new File(s"$PostWritingDirectory/${post.id}.json")
     file.getParentFile.mkdirs()
     file
