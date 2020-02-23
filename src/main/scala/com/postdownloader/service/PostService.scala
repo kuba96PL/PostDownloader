@@ -8,5 +8,5 @@ import scala.util.Try
 
 class PostService(httpClient: JsonPlaceholderHttpClient, fileWriter: PostFileWriter) {
 
-  def fetchAndSave: List[Try[Post]] = fileWriter.writePosts(httpClient.fetchAllPosts)
+  def saveAllPosts: List[Try[Post]] = fileWriter.writePosts(httpClient.fetchAllPosts)
 }

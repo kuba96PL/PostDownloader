@@ -24,4 +24,4 @@ class JsonPlaceholderHttpClient(implicit val httpBackend: SttpBackend[Identity, 
   }
 }
 
-final private case class PostFetchingException(message: String, cause: Throwable) extends IOException(message, cause)
+final case class PostFetchingException(message: String, cause: Throwable) extends IOException(message, cause)

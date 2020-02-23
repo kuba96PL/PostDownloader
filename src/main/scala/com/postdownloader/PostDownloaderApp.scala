@@ -14,5 +14,5 @@ object PostDownloaderApp extends App {
 
   private val service = new PostService(httpClient, fileWriter)
 
-  service.fetchAndSave
+  service.saveAllPosts
 }

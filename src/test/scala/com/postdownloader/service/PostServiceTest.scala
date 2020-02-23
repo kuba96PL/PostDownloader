@@ -2,7 +2,7 @@ package com.postdownloader.service
 
 import java.io.IOException
 
-import com.postdownloader.http.client.JsonPlaceholderHttpClient
+import com.postdownloader.http.client.{JsonPlaceholderHttpClient, PostFetchingException}
 import com.postdownloader.http.domain.Post
 import com.postdownloader.writer.PostFileWriter
 import org.scalamock.scalatest.MockFactory
@@ -10,7 +10,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-import scala.util.{Failure, Success}
+import scala.util.Success
 
 class PostServiceTest extends AnyFlatSpec with MockFactory with Matchers with GivenWhenThen {
 
@@ -29,14 +29,14 @@ class PostServiceTest extends AnyFlatSpec with MockFactory with Matchers with Gi
 
     (httpClient.fetchAllPosts _)
       .expects()
-      .returning(Success(List(post1, post2)))
+      .returning(List(post1, post2))
 
     (fileWriter.writePosts _)
       .expects(List(post1, post2))
       .returning(List(Success(post1), Success(post2)))
 
     When("fetching and saving posts")
-    val result = postService.fetchAndSave
+    val result = postService.saveAllPosts
 
     Then("return list of fetched and saved posts")
     result should contain only (Success(post1), Success(post2))
@@ -46,10 +46,10 @@ class PostServiceTest extends AnyFlatSpec with MockFactory with Matchers with Gi
     Given("Failure during posts fetching")
     (httpClient.fetchAllPosts _)
       .expects()
-      .returning(Failure(new IOException(new RuntimeException("some exception thrown"))))
+      .throwing(new IOException(new RuntimeException("some exception thrown")))
 
     When("fetching and saving posts")
-    val exception = the[PostFetchingException] thrownBy postService.fetchAndSave
+    val exception = the[PostFetchingException] thrownBy postService.saveAllPosts
 
     Then("throw PostFetchingException")
     exception.getMessage shouldEqual "An error occurred while fetching posts"
