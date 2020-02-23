@@ -32,7 +32,7 @@ class PostJsonFileRepository extends PostRepository with LazyLogging {
   }
 }
 
-final private case class FailedToWritePostToFileException(post: Post, cause: Throwable)
+final case class FailedToWritePostToFileException(post: Post, cause: Throwable)
     extends IOException(
       s"Failed to write post to file. Post ID: ${post.id}",
       cause
