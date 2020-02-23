@@ -12,13 +12,10 @@ import scala.util.{Failure, Success, Try}
 
 class PostJsonFileRepository extends PostRepository with LazyLogging {
   override def save(post: Post): Try[Post] = {
-    val file = new File(s"$PostWritingDirectory/${post.id}.json")
-    file.getParentFile.mkdirs()
+    val file: File = createFileWithDirectories(post)
     val bufferedWriter = new BufferedWriter(new FileWriter(file))
 
-    Try {
-      bufferedWriter.write(post.toJson.prettyPrint)
-    } match {
+    Try(bufferedWriter.write(post.toJson.prettyPrint)) match {
       case Success(_: Unit) =>
         bufferedWriter.close()
         Success(post)
@@ -27,6 +24,11 @@ class PostJsonFileRepository extends PostRepository with LazyLogging {
         bufferedWriter.close()
         Failure(FailedToWritePostToFileException(post, exception))
     }
+  }
+  private def createFileWithDirectories(post: Post) = {
+    val file = new File(s"$PostWritingDirectory/${post.id}.json")
+    file.getParentFile.mkdirs()
+    file
   }
 }
 
